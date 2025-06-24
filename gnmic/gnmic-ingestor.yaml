@@ -14,7 +14,6 @@ subscriptions:
      prefix:
      paths:
      stream-subscriptions:
-     # Interface oper-state
        - paths:
          - /
          stream-mode: sample

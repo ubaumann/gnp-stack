@@ -143,7 +143,7 @@ outputs:
     type: prometheus_write
 
     # url to push metrics towards, scheme is required
-    url: http://prometheus:9009/api/v1/push
+    url: http://prometheus:9090/api/v1/push
     
     # a map of string:string, 
     # custom HTTP headers to be sent along with each remote write request.

@@ -16,7 +16,7 @@ datasources:
   - name: Prometheus
     type: prometheus
     orgId: 1
-    url: http://clab-collectors-prometheus:9090
+    url: http://prometheus:9090
     password:
     user:
     database:

@@ -10,14 +10,32 @@ loader:
       - label=clab-node-kind: nokia_srlinux
 
 subscriptions:
+  states: 
+    stream-mode: on_change
+    heartbeat-interval: 5m
+    paths:
+      - /interface[name=*]/oper-state
+      - /network-instance[name=*]/protocols/bgp/neighbor[peer-address=*]/afi-safi[afi-safi-name=*]/oper-state
+      - /network-instance[name=*]/protocols/ospf/instance[name=*]/oper-state
+      - /platform/fan-tray[id=*]/oper-state
+      - /platform/power-supply[id=*]/oper-state
+    outputs:
+      - nats-states-output
   counters:
-     prefix:
-     paths:
-     stream-subscriptions:
-       - paths:
-         - /
-         stream-mode: sample
-         sample-interval: 15s
+    stream-mode: sample
+    sample-interval: 15s
+    paths:
+      - /interface[name=*]/statistics/in-octets
+      - /interface[name=*]/statistics/out-octets
+      - /interface[name=*]/statistics/in-packets
+      - /interface[name=*]/statistics/out-packets
+      - /interface[name=*]/statistics/in-discarded-packets
+      - /interface[name=*]/statistics/out-discarded-packets
+      - /interface[name=*]/statistics/in-error-packets
+      - /interface[name=*]/statistics/out-error-packets
+    outputs:
+      - nats-counters-output
+
 
 outputs:
   nats-counters-output:

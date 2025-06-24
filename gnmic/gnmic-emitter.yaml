@@ -198,3 +198,6 @@ outputs:
     
     # an integer, sets the number of writers draining the buffer and writing to Prometheus
     num-writers: 1
+
+    # debug mode
+    debug: false

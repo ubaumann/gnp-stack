@@ -17,8 +17,7 @@ inputs:
     stream: states-stream
 
     # list of subject filters within the stream to consume from
-    subjects:
-      - telemetry.device.*
+    subjects: []
 
     # enum string, format of consumed message: "event" or "proto"
     # default: "event"
@@ -32,7 +31,7 @@ inputs:
     # optional string, subject format used to extract metadata
     # one of: static, subscription.target, target.subscription
     # affects proto messages only
-    subject-format: target.subscription
+    subject-format: subscription.target
 
     # optional string, NATS username
     # username: nats-user
@@ -85,8 +84,7 @@ inputs:
     stream: counters-stream
 
     # list of subject filters within the stream to consume from
-    subjects:
-      - telemetry.device.*
+    subjects: []
 
     # enum string, format of consumed message: "event" or "proto"
     # default: "event"
@@ -143,7 +141,7 @@ outputs:
     type: prometheus_write
 
     # url to push metrics towards, scheme is required
-    url: http://prometheus:9090/api/v1/push
+    url: http://prometheus:9090/api/v1/write
     
     # a map of string:string, 
     # custom HTTP headers to be sent along with each remote write request.

@@ -65,11 +65,13 @@ processors:
       transforms:
         - replace:
             apply-on: "value"
-            old: "UP"
+            old: "up"
             new: "1"
-        - replace:
+        - replace:  
             apply-on: "value"
-            old: "DOWN"
+            old: "down"
+            new: "0"
+
   # eos          
   eos-up-down-map:
     event-strings:

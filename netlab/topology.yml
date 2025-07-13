@@ -33,43 +33,47 @@ groups:
       type: level-2
 
 nodes:
-  gnmic-ingestor: 
+  gnmic-ingestor:
     device: linux
     loopback: false
     clab:
-      config_templates: []
+      config_templates:
+        - "linux_hosts:/etc/hosts"
       image: ghcr.io/openconfig/gnmic:0.41.0
       cmd: '--config /app/gnmic.yaml --log subscribe'
       ports: ["9804:9804"]
       binds:
         - "../gnmic/gnmic-ingestor.yaml:/app/gnmic.yaml"
         - "/var/run/docker.sock:/var/run/docker.sock"
-  gnmic-emitter: 
+  gnmic-emitter:
     device: linux
     loopback: false
     clab:
-      config_templates: []
-      image: ghcr.io/openconfig/gnmic:0.41.0
+      config_templates:
+        - "linux_hosts:/etc/hosts"
+      image: gnmic:0.41.0-fix  # ghcr.io/openconfig/gnmic:0.41.0
       cmd: '--config /app/gnmic.yaml --log subscribe'
       ports: ["9806:9804"]
       binds:
         - "../gnmic/gnmic-emitter.yaml:/app/gnmic.yaml"
-  nats: 
+  nats:
     device: linux
     loopback: false
     clab:
-      config_templates: []
+      config_templates:
+        - "linux_hosts:/etc/hosts"
       image: nats:latest
       cmd: '-c /nats-server.conf'
       ports: ["4222:4222", "6222:6222", "8222:8222"]
       binds:
         - "../nats/nats-server.conf:/nats-server.conf"
         - "../nats/datastore:/data"
-  prometheus: 
+  prometheus:
     device: linux
     loopback: false
     clab:
-      config_templates: []
+      config_templates:
+        - "linux_hosts:/etc/hosts"
       image: prom/prometheus:latest
       cmd: |
         --config.file=/etc/prometheus/prometheus.yaml
@@ -79,17 +83,16 @@ nodes:
       ports: ["9090:9090"]
       binds:
         - "../prometheus/:/etc/prometheus/"
-  grafana: 
+  grafana:
     device: linux
     loopback: false
     clab:
-      config_templates: []
+      config_templates:
+        - "linux_hosts:/etc/hosts"
       image: grafana/grafana:latest
       ports: ["3000:3000"]
       binds:
         - "../grafana/datasources/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml"
-
-
 
 links:
 - leaf1:

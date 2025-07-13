@@ -1,0 +1,118 @@
+defaults.sources.extra: [ defaults.yml ]
+
+addressing:
+  loopback:
+    ipv4:
+    ipv6: 2001:db8:0::/48
+  lan:
+    ipv4:
+    ipv6: 2001:db8:1::/48
+  p2p:
+    ipv4:
+    ipv6: 2001:db8:2::/48
+
+
+groups:
+  clos:
+    _auto_create: True
+    device: srlinux
+    members:
+    - spine1
+    - leaf1
+    - leaf2
+    module: [ isis ]
+  edge:
+    _auto_create: True
+    device: eos
+    members:
+    - edge1
+    - edge2
+    module: [ isis ]
+    isis:
+      instance: WAN
+      type: level-2
+
+nodes:
+  gnmic-ingestor: 
+    device: linux
+    loopback: false
+    clab:
+      config_templates: []
+      image: ghcr.io/openconfig/gnmic:0.41.0
+      cmd: '--config /app/gnmic.yaml --log subscribe'
+      ports: ["9804:9804"]
+      binds:
+        - "../gnmic/gnmic-ingestor.yaml:/app/gnmic.yaml"
+        - "/var/run/docker.sock:/var/run/docker.sock"
+  gnmic-emitter: 
+    device: linux
+    loopback: false
+    clab:
+      config_templates: []
+      image: ghcr.io/openconfig/gnmic:0.41.0
+      cmd: '--config /app/gnmic.yaml --log subscribe'
+      ports: ["9806:9804"]
+      binds:
+        - "../gnmic/gnmic-emitter.yaml:/app/gnmic.yaml"
+  nats: 
+    device: linux
+    loopback: false
+    clab:
+      config_templates: []
+      image: nats:latest
+      cmd: '-c /nats-server.conf'
+      ports: ["4222:4222", "6222:6222", "8222:8222"]
+      binds:
+        - "../nats/nats-server.conf:/nats-server.conf"
+        - "../nats/datastore:/data"
+  prometheus: 
+    device: linux
+    loopback: false
+    clab:
+      config_templates: []
+      image: prom/prometheus:latest
+      cmd: |
+        --config.file=/etc/prometheus/prometheus.yaml
+        --web.console.libraries=/usr/share/prometheus/console_libraries
+        --web.console.templates=/usr/share/prometheus/consoles
+        --enable-feature=remote-write-receiver
+      ports: ["9090:9090"]
+      binds:
+        - "../prometheus/:/etc/prometheus/"
+  grafana: 
+    device: linux
+    loopback: false
+    clab:
+      config_templates: []
+      image: grafana/grafana:latest
+      ports: ["3000:3000"]
+      binds:
+        - "../grafana/datasources/datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml"
+
+
+
+links:
+- leaf1:
+  spine1:
+  unnumbered: true
+- leaf2:
+  spine1:
+  unnumbered: true
+- edge1:
+  edge2:
+  unnumbered: true
+  isis:
+    metric: 1
+    type: level-2
+- leaf1:
+  edge1:
+  unnumbered: true
+  isis:
+    metric: 10
+    type: level-2
+- leaf2:
+  edge2:
+  unnumbered: true
+  isis:
+    metric: 10
+    type: level-2

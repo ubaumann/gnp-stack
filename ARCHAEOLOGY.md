@@ -16,13 +16,13 @@ At some point the original team behind Observium decided to change their licence
 
 Right now, if you want to get to an equivalent experience of LibreNMS, but with streaming telemetry, you either buy a proprietary solution for many bucks, or you have a very large uphill battle. History is repeating itself. 
 
-Much like when Tobi released RRD and MRTG, we have telegraf and gnmic as two primary examples of good capture tooling, prometheus as a very mature time series database, and grafana as the industry standard visualisation tool. The time consuming part is mapping of the metric paths to the device/version and the normalisation of that data to a single model. 
+Much like when Tobi released RRD and MRTG, we have [telegraf](https://www.influxdata.com/time-series-platform/telegraf/) and [gnmic](https://gnmic.openconfig.net/) as two primary examples of good capture tooling, [prometheus](https://prometheus.io/) as a very mature time series database, and [grafana](https://grafana.com/) as the industry standard visualisation tool. The time consuming part is mapping of the metric paths to the device/version and the normalisation of that data to a single model. 
 
 In the "time is a flat circle" analogy, we are back where we were before Observium made SNMP "point and shoot".
 
-OpenConfig is a relatvely mature abstraction, which many device vendors now support as well. The challenge has been how far the device vendors have gone in their support of OC models, and how consistent the implementation is. 
+[OpenConfig](https://www.openconfig.net/) is a relatvely mature abstraction, which many device vendors now support as well. The challenge has been how far the device vendors have gone in their support of OC models, and how consistent the implementation is. 
 
-And so frustatingly, every organisation that wants to go down this path has had to start from scratch and since no network is fully single vendor, it is not so easy to buy a vendor tool and "get to value" with money alone.
+And so frustatingly, every organisation that wants to go down this path has had to start from scratch and since no network is fully single vendor, it is not so easy to buy a vendor tool and "get to value" with money alone. In two previous roles I have invested significant resources into this process of establishing GNMI telemetry, and producing the dashboards to match. I have always librenms in parallel and the zero to value on both of these approaches is regretably too far apart.
 
 So here we are with another enterprising young whipper-snapper from Switzerland (John) attempting to democratise streaming telemetry.
 

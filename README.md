@@ -6,7 +6,7 @@ For far too long network operators have been stuck in the SNMP era. Streaming Te
 
 It is the author's opinion that this is predominantly due to the complexity of assembling and configuring the stack. This is the problem this project seeks to resolve. More of the background here has been written into a separate blog-like post [here](ARCHAEOLOGY.md).
 
-I would like to point out that this project's existence is not to contradict the value of SNMP based tooling like LibreNMS. For many, SNMP on a 5 min polling interval is ample. LibreNMS's coverage in fantastic, and I would recommend it to anyone looking to gain visibility on their network where non exists today.
+I would like to point out that this project's existence is not to contradict the value of SNMP based tooling like [LibreNMS](https://www.librenms.org). For many, SNMP on a 5 min polling interval is ample. LibreNMS's coverage is fantastic, and I would recommend it to anyone looking to gain visibility on their network where non exists today. It also has a number of USPs in addition such as billing, syslog storage and device backups. This project is not in direct competition on that basis anyways.
 
 This project exists to give those needing or wanting Streaming Telemetry that same experience of point and shoot that you get from LibreNMS today on SNMP. 
 
